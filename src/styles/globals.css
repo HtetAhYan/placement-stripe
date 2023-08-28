@@ -4,7 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&family=Teko:wght@500&display=swap');
+
+  @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Kanit:wght@500&family=Teko:wght@500&display=swap');
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -87,3 +88,6 @@ display: none;
 }
 }
 
+.heading{
+  font-family: 'Black Ops One', cursive;
+}

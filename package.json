@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@cloudinary/react": "^1.11.2",
-    "@cloudinary/url-gen": "^1.11.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@material-tailwind/react": "^2.1.1",
@@ -20,7 +18,8 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@stripe/stripe-js": "^2.1.0",
     "autoprefixer": "10.4.15",
-    
+    "axios": "^1.5.0",
+    "cloudinary": "^1.40.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.16",
     "js-cookie": "^3.0.5",
@@ -28,7 +27,9 @@
     "micro": "^10.0.1",
     "micro-cors": "^0.1.1",
     "mui-tel-input": "^4.0.0",
+    "multer": "^1.4.5-lts.1",
     "next": "13.4.16",
+    "next-cloudinary": "^4.18.1",
     "next-connect-v0": "^0.12.2",
     "postcss": "8.4.27",
     "raw-body": "^2.5.2",

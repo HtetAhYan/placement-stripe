@@ -10,3 +10,4 @@ export default function Step1({ inputValues, handleInputChange }) {
     />
   );
 }
+  

@@ -14,7 +14,16 @@ export const apiSlice = createApi({
                 }
             })
             
-     })
+        }),
+        postStudentDetails: builder.mutation({
+            query: (data) => ({
+                url: '/api/studentDetails',
+                body: data, method: 'POST', headers: {
+                    'Content-Type': 'application/json',
+               
+                }
+            })
+        })
     }),
 });
-export const { useGetStripeUrlMutation } = apiSlice;
+export const { useGetStripeUrlMutation, usePostStudentDetailsMutation } = apiSlice;

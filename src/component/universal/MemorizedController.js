@@ -35,7 +35,10 @@ export const MemoizedController =
           )}
         />
       );
-    } else {
+    }
+    if (typeValue === 'file') return null;
+  
+    else {
       // Find the options array based on typeValue
       const selectedOptions =
         options.find((option) => option.value === typeValue)?.options || [];
@@ -47,14 +50,17 @@ export const MemoizedController =
           defaultValue={defaultValue}
           render={({ field }) => (
             <FormControl fullWidth>
-              <InputLabel>{name}</InputLabel>
+              <InputLabel className='text-sm sm:text-lg'>{name}</InputLabel>
               <Select
+             
                 {...field}
                 value={field.value || ''}
-             
+                variant='filled'
+
+                className='text-sm bg-white hover:bg-white sm:text-lg '
               >
                 {selectedOptions.map((item) => (
-                  <MenuItem key={item.label} value={item.label}>
+                  <MenuItem key={item.label} value={item.label} >
                     {item.label}
                   </MenuItem>
                 ))}
