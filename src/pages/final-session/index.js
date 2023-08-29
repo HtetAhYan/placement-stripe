@@ -11,61 +11,39 @@ function App() {
   const router = useRouter();
   const [required, isRequired] = useState(true);
 
-/* const onSubmit = async (data) => {
-  console.log(data);
+  const onSubmit = async (data) => {
+    console.log(data);
 
-  const formData = new FormData();
-  Object.keys(data).forEach((fieldName) => {
-    if (data[fieldName] instanceof FileList) {
-      for (let i = 0; i < data[fieldName].length; i++) {
-        const uniqueFieldName = `${fieldName}_${i}`; // Append an index to the property name
-        formData.append(uniqueFieldName, data[fieldName][i]);
-        formData.append('upload_preset', 'flashCard');
+    const formData = new FormData();
+    Object.keys(data).forEach((fieldName) => {
+      if (data[fieldName] instanceof FileList) {
+        for (let i = 0; i < data[fieldName].length; i++) {
+          formData.append('file', data[fieldName][i]);
+          formData.append('upload_preset', 'flashCard');
+        }
       }
-    }
-  });
+    });
 
-  try {
-    const response = await fetch(
-      'https://api.cloudinary.com/v1_1/di4a4oz3o/image/upload',
-      {
-        method: 'POST',
-        body: formData,
+    try {
+      const response = await fetch(
+        'https://api.cloudinary.com/v1_1/di4a4oz3o/image/upload',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Uploaded image URLs:', result.secure_url);
+        // Further actions, e.g., update state with the URLs
+      } else {
+        console.error('Error uploading images');
       }
-    );
-
-    if (response.ok) {
-      const result = await response.json();
-      console.log('Uploaded image URLs:', result.secure_url);
-      // Further actions, e.g., update state with the URLs
-    } else {
-      console.error('Error uploading images');
+    } catch (error) {
+      console.error('Error uploading images:', error);
     }
-  } catch (error) {
-    console.error('Error uploading images:', error);
-  }
-}; */
-const onSubmit = async (data) => {
-  console.log(data);
-
-  const formData = new FormData();
-    for (let i = 0; i < data.length; i++) {
-        const file = imageInputRef.current.files[i];
-  
-        const data = new FormData();
-        data.append("file", file);
-        data.append("upload_preset", "flashCard");
-  
-        const res = await fetch(`https://api.cloudinary.com/v1_1/di4a4oz3o/image/upload`, {
-            method: "POST",
-            body: data,
-        }).then((res) => console.log(res));
-
-    }
- 
-
- 
-}
+  };
 
   return (
     <div className="bg-blue-gray-50 min-h-screen flex flex-col items-center">
@@ -108,4 +86,4 @@ const onSubmit = async (data) => {
   );
 }
 
-export default App
+export default App;
