@@ -1,4 +1,11 @@
-export const inputData =[ {
+export const inputData = [
+    {
+        label: 'Email',
+        jsonName: 'email',
+    type:'text',value:'input'
+    }
+    ,
+    {
     label: 'Student Name',
     jsonName: 'studentName',
     type:'text',

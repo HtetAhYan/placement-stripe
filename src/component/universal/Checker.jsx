@@ -4,7 +4,7 @@ import { Checkbox } from '@mui/material';
 import { toggleCheckbox } from '@/features/checkboxSlice';
 import { toast } from 'react-hot-toast';
 
-function Checker() {
+function Checker({required=null}) {
   const isChecked = useSelector((state) => state.checkbox.isChecked);
    const isClicked = useSelector((state) => state.btn.isClicked);
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ useEffect(() => {
   
   return (
     <div className="flex items-center">
-      <Checkbox color='success'  checked={isChecked} onChange={() => dispatch(toggleCheckbox())} />
+      <Checkbox required={required} color='success'  checked={isChecked} onChange={() => dispatch(toggleCheckbox())} />
       <p
         className={
           !isClicked && !isChecked
@@ -32,3 +32,9 @@ useEffect(() => {
 }
 
 export default Checker;
+export const getStaticProps = async () => {
+  const token= localStorage.getItem('access')
+  const res = await fetch('https://api.github.com/repos/vercel/next.js',)
+  const repo = await res.json()
+  return { props: { repo } }
+}

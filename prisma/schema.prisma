@@ -12,8 +12,8 @@ datasource db {
 
 model student {
   id        Int         @id @default(autoincrement())
-  email     String      @unique
-  name      String?
+  email     String     
+  studentName      String?
   fatherName String?
   dob        String?
   passedGrade String?
@@ -21,13 +21,13 @@ model student {
   campusTime  String?
   intakes     String?
   oldSchoolName String?
-  oldGradeReportCard String
-  admissionFee    String
+ 
   city      String?
+  country   String
   phoneNumber String?
-  address     String?
+  residentialAddress     String?
   createdAt Int
-
+  token     String 
  
 }
 
