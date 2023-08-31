@@ -15,15 +15,7 @@ export const webhooksHandler = async (req, res) => {
 
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
-            const newStudent = await prisma.student.create({
-                data: {
-                    name: session.customer_details.name,
-                    email: session.customer_details.email,
-                   
-                    createdAt: getCurrentTimestamp(),
-                    
-                }
-            });
+          
 
  // Store the newStudent object
 console.log(session);

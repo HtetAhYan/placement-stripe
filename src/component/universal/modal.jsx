@@ -5,7 +5,7 @@ const ModalComponent = ({ isOpen, onClose, children }) => {
   return (
     <Modal open={isOpen} onClose={onClose}>
           <Box className=" rounded-lg fixed top-1/2 left-1/2 transform
-       -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg h-[15%] flex flex-col justify-between w-[90%] p-4 sm:w-1/5 ">
+       -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg  flex flex-col justify-between w-[90%] p-4 sm:w-2/5 ">
         
         {children}
       </Box>

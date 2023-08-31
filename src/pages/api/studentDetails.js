@@ -12,6 +12,7 @@ function generateRandomToken() {
 }
 handler.post(async (req, res) => {
   try {
+    const {data,url} = req.body;
     const {
       email,
       studentName,
@@ -26,7 +27,7 @@ handler.post(async (req, res) => {
       country,
       phoneNumber,
       residentialAddress,
-    } = req.body;
+    } = data;
 const token=generateRandomToken();
     // Create a new student record in the database
     const createdStudent = await prisma.student.create({
@@ -44,9 +45,9 @@ const token=generateRandomToken();
         residentialAddress: residentialAddress,
         gradeToAttend: gradeToAttend,
         oldSchoolName: oldSchoolName,
-        createdAt: 0,
+        createdAt: Date.now(),
         token:token
-        
+        ,url:url
       },
     });
 

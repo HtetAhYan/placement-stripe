@@ -2,11 +2,14 @@ import { toast } from "react-hot-toast";
 
 export const handleGetStart = async (isChecked, createURL, dispatch) => {
   try {
+    
     if (isChecked) {
       const { data } = await createURL();
 
       toast.promise(
-        createURL(),
+        createURL().then(
+          (response) => localStorage.setItem('stripe','stripe')
+        ),
         {
           loading: 'Fetching data...',
           success: (response) => {

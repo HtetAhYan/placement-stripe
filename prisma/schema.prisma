@@ -11,26 +11,21 @@ datasource db {
 }
 
 model student {
-  id        Int         @id @default(autoincrement())
-  email     String     
+  id               Int       @id @default(autoincrement())
+  email            String
   studentName      String?
-  fatherName String?
-  dob        String?
-  passedGrade String?
-  gradeToAttend String?
-  campusTime  String?
-  intakes     String?
-  oldSchoolName String?
- 
-  city      String?
-  country   String
-  phoneNumber String?
-  residentialAddress     String?
-  createdAt Int
-  token     String 
- 
+  fatherName       String?
+  dob              String?
+  passedGrade      String?
+  gradeToAttend    String?
+  campusTime       String?
+  intakes          String?
+  oldSchoolName    String?
+  city             String?
+  country          String
+  phoneNumber      String?
+  residentialAddress String?
+  createdAt        Float
+  token            String
+  url       String
 }
-
-
-
-

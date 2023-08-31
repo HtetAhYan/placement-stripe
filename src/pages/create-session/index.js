@@ -12,6 +12,9 @@ import * as yup from "yup";
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import ModalComponent from '@/component/universal/modal';
+import { policiesDatas } from '@/data/policiesDatas';
+import Checker from '@/component/universal/Checker';
+import { useSelector } from 'react-redux';
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -31,8 +34,44 @@ function App() {
   const [datas,setDatas]=useState([])
   const router=useRouter()
   const [clicked, setClicked] = useState(false);
- const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [url,setUrl]=useState()
+const [image,setImage]=useState()
+ //onchange 
+ const onChangePhoto = async () => {
+  const file = image; // Get the selected file from the input
+console.log(file);
+  if (!file) {
+    console.error('No file selected');
+    return;
+  }
+ 
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'flashCard');
 
+  try {
+    const response = await fetch(
+      'https://api.cloudinary.com/v1_1/di4a4oz3o/image/upload',
+      {
+        method: 'POST',
+        body: formData,
+      }
+    );
+
+    if (response.ok) {
+      const result = await response.json();
+    
+      setUrl(result.secure_url);
+    } else {
+      console.error('Error uploading image');
+    }
+  } catch (error) {
+    console.error('Error uploading image:', error);
+  }
+};  console.log(url);
+
+  const isChecked = useSelector((state) => state.checkbox.isChecked);
   const openModal = () => {
     setModalOpen(true);
   };
@@ -45,7 +84,8 @@ function App() {
   });
 
   useEffect(() => {
-       const retrievedToken = localStorage.getItem('accessToken');
+    localStorage.setItem('status','success')
+  localStorage.getItem('stripe')!=='stripe' && router.replace('/')
      if (clicked) {
       errors.email?.message.length>0 && toast.error(errors.email?.message, {
          duration: 2000
@@ -54,7 +94,7 @@ function App() {
          duration: 3000
        })
      }
-     retrievedToken && router.replace('/final-session')
+
    },[errors])
   
   const [createData, { isLoading }] = usePostStudentDetailsMutation()
@@ -63,7 +103,8 @@ function App() {
      setTimeout(() => {
         setClicked(false);
       
-      }, 1000); 
+     }, 1000); 
+    onChangePhoto()
   }
   const onSubmit = (data) => {
 openModal()
@@ -73,7 +114,10 @@ openModal()
    setDatas(data)
   };
   const redirectNext = async () => {
-   createData(datas).then(res=> localStorage.setItem('accessToken', res.data.createdStudent.token)).finally()
+    createData({ data: datas, url: url }).then(res => localStorage.clear('status', res.data.createdStudent.token)).finally(
+      router.replace('/'),
+      
+   )
 }
 
   const logo='https://imageupload.io/ib/BhJTGsxv79qecQD_1692764398.png'
@@ -107,17 +151,41 @@ openModal()
         ))}
  
    <ModalComponent isOpen={modalOpen} onClose={closeModal}>
-        <h2 className="text-lg font-semibold  text-center">Please comfirm to proceed!</h2>
+          <h2 className="text-lg font-semibold  text-center">Terms and Conditions (Agreement)</h2>
+          {policiesDatas.map((item, index) => (
+            <li className='sm:leading-8 text-gray-750 leading-5 mt-2 text-sm' key={index}>{item}</li>
+          ))}<p className='text-red-800  mt-2'>Important {"=>" }</p>
+       
+          <p className=' text-left text-red-700'>:
+            After you submit, once we have reviewed and finalized the process,
+            we will send a Zoom link to the email address provided in the form (Gmail) within one or two weeks,
+            for your convenience. Please regularly check your Gmail.</p>
+<Checker required={true}/>
+     
           <div className='flex items-center justify-between'><button className="btn btn-active btn-neutral" onClick={closeModal}>Cancel</button>
           
-          <button className="btn btn-active btn-accent" onClick={redirectNext}>Confirm</button></div>
+          <button disabled={!isChecked} className="btn btn-active btn-accent" onClick={redirectNext}>Confirm</button></div>
       </ModalComponent>
-       
-        <div className=" w-full items-center justify-end flex  ">
+               <div className="flex flex-col" >
+                  <h1>Old Grade Report Card or Birth Certificate (မွေးစာရင်း)</h1>
+            <input
+              disabled={isLoading}
+                    required
+                    accept="image/*"
+            type="file"
+            
+                    className="file-input  file-input-bordered file-input-lg w-full max-w-x mt-2"
+                    onChange={(e) => setImage(e.target.files[0])}
+                  />
+                </div>
+        <div  className=" w-full flex items-center justify-end sm:col-start-2  ">
           <Button
             disabled={isLoading}
             color="success"
-            className="sm:h-full w-1/3 sm:w-1/4 sm:p-2 mb-2 sm:mb-0 text-white bg-deep-purple-700 hover:bg-deep-purple-800 
+            className="
+         
+
+            sm:h-full w-1/3 sm:w-1/5 sm:p-2 mb-2 sm:mb-0 text-white bg-deep-purple-700 hover:bg-deep-purple-800 
             font-bold rounded focus:outline-none focus:shadow-outline"
             type="submit"
   onClick={handleClicked}

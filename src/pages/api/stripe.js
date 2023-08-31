@@ -22,7 +22,16 @@ export default async function handler(req, res) {
                         },
                         quantity: 1,
                     },
-                ],
+        ],
+        custom_fields: [
+    {
+      key: 'studentname',
+      label: {
+        type: 'custom',
+        custom: 'Student Name',
+      },
+      type: 'text',
+    },],
                 success_url: `${req.headers.origin}/create-session`,
                 cancel_url: `${req.headers.origin}/`,
             };

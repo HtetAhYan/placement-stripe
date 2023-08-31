@@ -23,7 +23,13 @@ export const apiSlice = createApi({
                
                 }
             })
+        }),
+        postDocument: builder.mutation({
+            query: (data) => ({
+                url: '/api/imgupload',
+                body: data, method: 'POST'
+            })
         })
     }),
 });
-export const { useGetStripeUrlMutation, usePostStudentDetailsMutation } = apiSlice;
+export const { useGetStripeUrlMutation, usePostStudentDetailsMutation,usePostDocumentMutation } = apiSlice;
