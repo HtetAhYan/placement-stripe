@@ -8,8 +8,9 @@ const router=useRouter()
   useEffect(() => {
  
     const status = localStorage.getItem("status")
-    status==="success" && router.replace('/create-session')
-    status!=="success" && localStorage.clear('stripe')
+    status==="pending" && router.replace('/create-session')
+    status === "success" && localStorage.clear('stripe')
+    
 })
   return (
     <div className='min-h-screen w-full bg-white'>

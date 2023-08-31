@@ -84,8 +84,13 @@ console.log(file);
   });
 
   useEffect(() => {
-    localStorage.setItem('status','success')
-  localStorage.getItem('stripe')!=='stripe' && router.replace('/')
+    if (localStorage.getItem('stripe') !== 'stripe') {
+      localStorage.removeItem('status')
+      router.replace('/')
+  
+   }
+/*     localStorage.setItem('status','pending') */
+ 
      if (clicked) {
       errors.email?.message.length>0 && toast.error(errors.email?.message, {
          duration: 2000
@@ -113,16 +118,19 @@ openModal()
   toast.success('hi')
    setDatas(data)
   };
-  const redirectNext = async () => {
-    createData({ data: datas, url: url }).then(res => localStorage.clear('status', res.data.createdStudent.token)).finally(
-      router.replace('/'),
-      
-   )
-}
+const redirectNext = async () => {
+    createData({ data: datas, url: url }).then(res => {
+      localStorage.setItem('status','success');
+      localStorage.removeItem('stripe')
+    }).finally(() => {
+        router.replace('/');
+    });
+};
+
 
   const logo='https://imageupload.io/ib/BhJTGsxv79qecQD_1692764398.png'
   return (
-    <div className="h-screen  flex flex-col items-center justify-center ">
+    <div className="h-screen  flex flex-col items-center justify-center " onClick={() =>  localStorage.setItem('status','pending')}>
     <div className='flex items-center mt-8'>
       <h1 className='text-center  text-[#0e1129] heading font-kanit text-3xl font-bold mr-2'>Registeration form</h1>
        <Image src={logo} alt="EDUSN" width={120} height={60}/></div>
